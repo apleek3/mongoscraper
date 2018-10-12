@@ -43,7 +43,8 @@ app.get("/scrape", function (req, res) {
       // Add the title, text, and href of every link, as properties of the result 
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
-     // result.summary = $(this).children("p span").text();
+      result.summary = $(this).children("p").text();
+      
 
 
       // Create a new Article using the `result` object built from scraping
@@ -60,6 +61,7 @@ app.get("/scrape", function (req, res) {
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
+    console.log(res);
   });
 });
 

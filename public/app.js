@@ -28,6 +28,8 @@ $(document).ready(function() {
           data[i].title +
           "<br />" +
           data[i].link +
+          "<br />" +
+          data[i].summary +
           "</p>"
       );
     }
@@ -35,18 +37,18 @@ $(document).ready(function() {
 
   // $("#notes").empty(); // Empty the notes section after submit
   // Returns the articles as a json
-  $.getJSON("/articles/..", function(data) {
-    for (var i = 0; i < data.length; i++) {
-      // Displays the information on the page
-      $("#articles").append(
-        "<p data-id='" +
-          data[i].title +
-          "<br />" +
-          data[i].body +
-          "</p>"
-      );
-    }
-  });
+  // $.getJSON("/articles/..", function(data) {
+  //   for (var i = 0; i < data.length; i++) {
+  //     // Displays the information on the page
+  //     $("#articles").append(
+  //       "<p data-id='" +
+  //         data[i].title +
+  //         "<br />" +
+  //         data[i].body +
+  //         "</p>"
+  //     );
+  //   }
+  // });
 });
 
 $(document).on("click", "p", function() {
