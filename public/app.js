@@ -33,7 +33,7 @@ $(document).ready(function() {
     }
   });
 
-  $("#notes").empty(); // Empty the notes section after submit
+  // $("#notes").empty(); // Empty the notes section after submit
   // Returns the articles as a json
   $.getJSON("/articles/..", function(data) {
     for (var i = 0; i < data.length; i++) {
@@ -51,6 +51,9 @@ $(document).ready(function() {
 
 $(document).on("click", "p", function() {
   $("#notes").empty(); // Empty the notes from the note section
+  $("#notesFooter").empty(); // Empty the modal footer
+  $("#articleTitle").empty(); // Empty the modal title
+  $("#modalButton").click(); //activate the modal
   var thisId = $(this).attr("data-id"); // Save the id from the p tag
 
   // ARTICLE ajax call
@@ -60,14 +63,15 @@ $(document).on("click", "p", function() {
   }).then(function(data) {
     console.log(data);
     // TITLE
-    $("#notes").append("<h2>" + data.title + "</h2>");
+    $("#articleTitle").append("<h4> The Article you have clicked on is: <h1> '" + data.title + "' </h1></h4>");
     // Title input
-    $("#notes").append("<input id='titleinput' name='title' >");
+    $("#notes").append("<div class='col-10'>This note's current Title:<input style='width:90%; border-width:3px' id='titleinput' name='title' ></div>");
     // TEXT AREA
-    $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+    $("#notes").append("<div class='col-10'>The last note for this article is:<textarea style='width:90%; border-width:2px' id='bodyinput' name='body'></textarea></div>");
     // SUBMIT BUTTON
-    $("#notes").append(
-      "<button data-id='" + data._id + "' id='savenote'>Save Note</button>"
+    $("#notesFooter").append(
+      "<button data-id='" + data._id + "' id='savenote' class='btn btn-primary'>Save Note</button>",
+      "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>"
     );
 
     if (data.note) {
@@ -95,10 +99,12 @@ $(document).on("click", "#savenote", function() {
     }
   }).then(function(data) {
     console.log(data); // For confirmation
-    $("#notes").empty(); // Empty the notes section after submit
   });
 
   // Clears the values for new entries
   $("#titleinput").val("");
   $("#bodyinput").val("");
+  $("#notes").empty();
+  $("#notes").append("<div class='col-9-sm'><h4> Thank you. Your note has been saved! </h4></div>")
+  
 });

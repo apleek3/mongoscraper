@@ -21,6 +21,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/grayscale.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
 </head>
 
@@ -56,8 +57,10 @@
     <div class="container d-flex h-100 align-items-center">
       <div id="wrapper" class="mx-auto text-center">
         <h1 class="mx-auto my-0 text-uppercase">IGN Scraper</h1>
-        <h2 class="text-white-50 mx-auto mt-2 mb-5">Please seek legal consultation before use; author assumes no responsibility for unauthorized utlization or dissemination of unprotected information.</h2>
-        <h3 class="text-white-50 mx-auto mt-2 mb-5">Design and publication process for this project overseen by Triology Education Services and administered by UC Davis Coding Bootcamp for Educational Purposes ONLY.</h3>
+        <h2 class="text-white-50 mx-auto mt-2 mb-5">Please seek legal consultation before use; author assumes no
+          responsibility for unauthorized utlization or dissemination of unprotected information.</h2>
+        <h3 class="text-white-50 mx-auto mt-2 mb-5">Design and publication process for this project overseen by
+          Triology Education Services and administered by UC Davis Coding Bootcamp for Educational Purposes ONLY.</h3>
         <a href="#projects" class="btn btn-primary js-scroll-trigger">Let's Scrape!</a>
       </div>
     </div>
@@ -69,8 +72,10 @@
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h2 class="text-white mb-4">Built with Bootstrap 4: Grayscale theme, Mongo DB, Mongoose, Axios, and Cheerio</h2>
-          <p class="text-white-50">This project is designed as a learning tool that others may use to "scrape" websites for their public information. 
-            <a href="https://github.com/apleek3/mongoscraper">GitHub: apleek3</a>. The tools, information, and instructions are open source. Please follow the link for my GitHub Repo to learn more.</p>
+          <p class="text-white-50">This project is designed as a learning tool that others may use to "scrape" websites
+            for public information.
+            <a href="https://github.com/apleek3/mongoscraper">GitHub: apleek3</a>. The tools, information, and
+            instructions are open source. Please follow the link for my GitHub Repo to learn more.</p>
         </div>
       </div>
       <img src="img/ipad.png" class="img-fluid" alt="">
@@ -78,10 +83,37 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="projects-section bg-light">
+  <section id="projects" class="projects-section bg-light container d-flex h-100 align-items-center">
     <div class="row">
       <div class="col-9 container-fluid" id="articles"></div>
-      <div class="col-3 container-fluid" id="notes"></div>
+      <!-- <div class="col-3 container-fluid" id="notes"></div> -->
+
+      <!-- Button trigger modal -->
+      <button id="modalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Launch demo modal
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="articleTitle"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="notes" class="modal-body">
+              
+            </div>
+            <div id="notesFooter" class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </section>
