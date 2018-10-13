@@ -9,3 +9,9 @@
 #modalButton {
   display: none;
 }
+
+#newScrape {
+  position: relative;
+  margin: 0 auto;
+  z-index: 100;
+}
