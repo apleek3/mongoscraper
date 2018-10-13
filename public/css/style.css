@@ -15,3 +15,11 @@
   margin: 0 auto;
   z-index: 100;
 }
+
+#delete-article {
+  position: relative;
+}
+
+#notesDiv {
+  
+}
