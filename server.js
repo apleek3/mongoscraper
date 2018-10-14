@@ -9,7 +9,7 @@ var cheerio = require("cheerio");
 var db = require("./models");
 
 // PORT 3000 as is tradition
-var PORT = 3000;
+var PORT = proces.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -28,6 +28,18 @@ mongoose.connect(
   MONGODB_URI,
   { useNewUrlParser: true }
 );
+
+var db = mongoose.connection;
+
+// Show any mongoose errors
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
+
+// Once logged in to the db through mongoose, log a success message
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
 // Use this GET to "Scrape" sites
 app.get("/scrape", function(req, res) {
