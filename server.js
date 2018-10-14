@@ -84,6 +84,19 @@ app.get("/articles", function(req, res) {
     });
 });
 
+app.get("/notes", function(req, res) {
+  // Grab every document in the Notes collection
+  db.Note.find({})
+    .then(function(dbNote) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbNote);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
@@ -124,20 +137,19 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-// Delete One from the DB
-app.delete("/delete/:id", function(req, res) {
+// Delete One Article from the DB
+app.delete("/delete/article/:id", function(req, res) {
   // Remove a note using the objectID
   db.Article.findOneAndDelete(
     {
-      _id: (req.params.id)
+      _id: req.params.id
     },
     function(error, removed) {
       // Log any errors from mongojs
       if (error) {
         console.log(error);
         res.send(error);
-      }
-      else {
+      } else {
         // Otherwise, send the mongojs response to the browser
         // This will fire off the success function of the ajax request
         console.log(removed);
@@ -147,65 +159,45 @@ app.delete("/delete/:id", function(req, res) {
   );
 });
 
+app.delete("/delete/note/:id", function(req, res) {
+  // Remove a note using the objectID
+  db.Note.findOneAndDelete(
+    {
+      _id: req.params.id
+    },
+    function(error, removed) {
+      // Log any errors from mongojs
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        // Otherwise, send the mongojs response to the browser
+        // This will fire off the success function of the ajax request
+        console.log(removed);
+        res.send(removed);
+      }
+    }
+  );
+});
 
-// // find by document id and update and pop or remove item in array
-// app.delete("/articles/delete/:id", function(req, res) {
-//   Articles.findOneAndRemove({ _id: req.params.id }, function(err) {
-//     // Log any errors
-//     if (err) {
-//       console.log(err);
-//       res.send(err);
-//     } else {
-//       // Or send the note to the browser
-//       res.send("Article Deleted");
-//     }
-//   });
-// });
-
-//     .then(function(dbArticle) {
-//       return db.Articles.findOneAndRemove(
-//         { _id: dbArticle.id }
-//       );
-//     })
-//     .then(function(dbArticle) {
-//       // If we were able to successfully update an Article, send it back to the client
-//       res.json(dbArticle);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-// });
+// Delete ALL Articles from the DB
+app.delete("/refresh/", function(req, res) {
+  // Remove a note using the objectID
+  db.Article.deleteMany({}, function(error, removed) {
+    // Log any errors from mongojs
+    if (error) {
+      console.log(error);
+      res.send(error);
+    } else {
+      // Otherwise, send the mongojs response to the browser
+      // This will fire off the success function of the ajax request
+      console.log(removed);
+      res.send(removed);
+    }
+  });
+});
 
 // Start the server
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
-
-// // Delete a note
-// app.delete("/notes/delete/:note_id/:article_id", function(req, res) {
-//   // Use the note id to find and delete it
-//   Note.findOneAndRemove({ _id: req.params.note_id }, function(err) {
-//     // Log any errors
-//     if (err) {
-//       console.log(err);
-//       res.send(err);
-//     } else {
-//       Article.findOneAndUpdate(
-//         { _id: req.params.article_id },
-//         { $pull: { notes: req.params.note_id } }
-//       )
-//         // Execute the above query
-//         .exec(function(err) {
-//           // Log any errors
-//           if (err) {
-//             console.log(err);
-//             res.send(err);
-//           } else {
-//             // Or send the note to the browser
-//             res.send("Note Deleted");
-//           }
-//         });
-//     }
-//   });
-// });
