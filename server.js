@@ -5,7 +5,8 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var uri = 'mongodb://heroku_h636hjjs:ko27n1vut7qd4qnfcmdh8van01@ds223653.mlab.com:23653/heroku_h636hjjs'
+var databaseuri =
+  "mongodb://heroku_h636hjjs:ko27n1vut7qd4qnfcmdh8van01@ds223653.mlab.com:23653/heroku_h636hjjs";
 
 // Models
 var db = require("./models");
@@ -23,23 +24,26 @@ app.use(express.json());
 // (Make public a static folder) - one from class. Will study more.
 app.use(express.static("public"));
 
-// Mongo DB connection per homework requirements. Good practice!
-var MONGODB_URI =
-  uri || "mongodb://localhost/mongoscraperign";
-mongoose.connect(
-  MONGODB_URI,
-  { useNewUrlParser: true }
-);
+// if (process.env.MONGODB_URI) {
+// var MONGODB_URI = databaseuri || "mongodb://localhost/mongoscraperign";
+// mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+// }
 
-var db = mongoose.connection;
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseuri);
+}
+
+var DB = mongoose.connection;
 
 // Show any mongoose errors
-db.on("error", function(error) {
+DB.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
 
 // Once logged in to the db through mongoose, log a success message
-db.once("open", function() {
+DB.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
