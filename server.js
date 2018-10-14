@@ -11,7 +11,7 @@ var uri = 'mongodb://heroku_h636hjjs:ko27n1vut7qd4qnfcmdh8van01@ds223653.mlab.co
 var db = require("./models");
 
 // PORT 3000 as is tradition
-var PORT = proces.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
