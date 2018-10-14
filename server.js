@@ -5,6 +5,8 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+var uri = 'mongodb://heroku_h636hjjs:ko27n1vut7qd4qnfcmdh8van01@ds223653.mlab.com:23653/heroku_h636hjjs'
+
 // Models
 var db = require("./models");
 
@@ -23,7 +25,7 @@ app.use(express.static("public"));
 
 // Mongo DB connection per homework requirements. Good practice!
 var MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/mongoscraperign";
+  uri || "mongodb://localhost/mongoscraperign";
 mongoose.connect(
   MONGODB_URI,
   { useNewUrlParser: true }
